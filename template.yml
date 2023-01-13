@@ -6,28 +6,22 @@ Parameters:
   VpcId:
     Type: String
     Description: VPC id
-    Default: vpc-869259ed
   PublicSubnet1:
     Type: String
-    Default: subnet-b4a583f8
   PublicSubnet2:
     Type: String
-    Default: subnet-12137b69
   CertificateArn:
     Type: String
-    Default: arn:aws:acm:ap-south-1:301838289846:certificate/4cb55a71-32a2-45ac-a2c5-64fa948ca293
   authorizationEndpoint:
     Type: String
     Description: account endpoint
     Default: https://login.microsoftonline.com/d21e0fcc-fc42-41b3-b968-cc60f1ab807e/oauth2/v2.0/authorize
   clientId:
     Type: String
-    Description: clinet ID for application 
-    Default: 4mronkevv8o7vc0v21ugcv29vj
+    Description: clinet ID for application
   clientSecret:
     Type: String
-    Description: client secret for application 
-    Default: ngt8Q~tH26R-imeNTOVToR_ADXK.hq1BGLD_Bds7
+    Description: client secret for application
   issuer:
     Type: String
     Description: issuer of  account
@@ -48,12 +42,7 @@ Parameters:
     Default: www.dev.pennysaver.in
   ExistingTable:
     Type: String
-    Default: transactions
     Description: (Required) The name of existing DynamoDB
-
-
-  
-  
 
 # Global values that are applied to all applicable resources in this template
 Globals:
@@ -75,14 +64,16 @@ Resources:
   MyLambdaFunction:
     Type: 'AWS::Serverless::Function'
     Properties:
-      CodeUri: ./liberty_get
+      CodeUri: ./lambda
       Policies:
         - AWSLambdaBasicExecutionRole
         - DynamoDBCrudPolicy:
             TableName: !Ref ExistingTable
       Tags:
         name: !Ref AWS::StackName
-
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref   ExistingTable
   MyLambdaFunctionPermission:
     Type: AWS::Lambda::Permission
     Properties:

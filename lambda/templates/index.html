@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+    <title>Hello, world!</title>
+
+
+  </head>
+  <body>
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>attribute</th>
+      <th>value</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for key, value in data.items() %}
+    <tr>
+        {% if key == 'send_status' %}
+        <td>{{ key }} (enqueued/blocked) </td>
+        {% else %}
+        <td>{{ key }}</td>
+        {% endif %}
+        {% if key == 'send_status' %}
+        <td class="value-cell" data-key="{{key}}" data-value="{{value}}" id="send_status_cell" contenteditable="true">{{ value }}</td>
+        {% else %}
+        <td class="value-cell" data-key="{{key}}" data-value="{{value}}" id="{{key}}_cell" contenteditable="false">{{ value }}</td>
+        {% endif %}
+        {% if key == 'send_status' %}
+        <td><button class="save-btn" id="save_btn">save</button>
+        {% else %}
+        <td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<script>
+
+ $(document).on("click","#save_btn", function(event){
+     event.preventDefault();
+        var cell = $('#send_status_cell');
+        var sendStatusvalue = cell.text();
+
+        if (sendStatusvalue !='blocked' && sendStatusvalue !='enqueued')
+        {
+            alert("Invalid Value For Send Status!")
+            return false
+          }
+
+        var pk_cell =  $('#pk_cell');
+        var pk = pk_cell.text();
+
+        var sk_cell =  $('#sk_cell');
+        var sk = sk_cell.text();
+
+
+        var data = {'pk': pk, 'sk': sk, 'send_status': sendStatusvalue};
+
+        //alert(JSON.stringify(data));
+
+        $.ajax({
+            type: "POST",
+            url: "/",
+            data: data,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+                alert("Update Successful! Please refresh to verify!");
+                //cell.html(value).attr("data-value",value);
+                //$("#save_btn").text("update").attr("id","send_status_btn");
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+                alert("Update Failed: "+xhr.responseText);
+
+            }
+        });
+    });
+    </script>
+
+</body>
+</html>
