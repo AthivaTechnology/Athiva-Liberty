@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src=“https://code.jquery.com/jquery-1.10.2.js”></script>
+    <meta http-equiv="refresh" content="30">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+    <style>
+        .form-center {
+            justify-content: center;
+            width: 50vw; 
+            margin-left : 25vw;
+        }
+        .btncls{
+          position:absolute;
+          right:635px;
+          top:530px;
+          border: 2px solid gray;
+          border-radius: 4px;          
+        }
+        .box{
+          border: 2px solid gray;
+          border-radius: 4px;
+          width : 35.5%;
+
+        }
+      </style>
+      
+        <!-- //do something
+
+        // var send = document.getElementById("status").value;
+        // if (send == "Success") {
+        //   document.getElementById("updateclick").disabled = true;
+        // }
+        // else if (send == "Pending") {
+        //   var option = document.createElement("option");
+        //   option.text = "Block";
+        //   x.add(option, x[1]);
+        //   var option1 = document.createElement("option");
+        //   option1.text = "Unblock"
+        //   x.add(option1,x[2]);
+        // }
+        // else {
+        //   var option = document.createElement("option");
+        //   option.text = "Unblock";
+        //   x.add(option, x[1]);
+        // }
+      } -->
+    
+
+    
+  </head>
+  <body>
+   
+    <form class = "form-center" id="transaction" method="post" ">
+        {% for item in items %}
+        <div style="max-width: 500px;">
+        </div>
+        <div style="padding-bottom: 18px;font-size : 24px;margin-left: 28%;">Transaction Details</div>
+        <div style="display:flex; padding-bottom: 18px;max-width : 450px;">
+        </div>
+        <label style = " margin-left:-20%; padding-bottom: 18px;">Partition Key</label>
+        <input class = "box" type="text" id="pk" name="pk" style="max-width : 100%;margin-left: 5%;" value ={{item.pk}} readonly>
+        <label style = " margin-left: 10%; padding-bottom: 18px;">Sort Key</label>
+        <input class = "box" type="text" id="sk" name="sk" style="max-width : 100%;margin-left: 7.5%;" value ={{item.sk}}><br>
+        <label style = " margin-left: -20%; padding-bottom: 18px;">Address</label>  
+        <input class = "box" type="text" id="data_4" name="address" style="max-width : 450px; margin-left: 10%;" value ={{item.address}} readonly>
+        
+        
+        <!-- <div style=" margin-left: -7%; margin-right: 3%; width: 49%;">Partition Key
+        <input type="text" id="data_2" name="data_2" style="max-width: 100%;" value ={{item.pk}}> -->
+        <!-- </div><br>
+        <div style=" margin-left: -3%; margin-right: 0; width: 49%;">Sort Key
+        <input type="text" id="data_3" name="data_3" style="max-width: 100%;" value ={{item.sk}}> -->
+        
+        <label style = " margin-left: 10%; padding-bottom: 18px;">Amount</label>
+        <input class = "box" type="text" id="data_4" name="amo" style="max-width : 450px;margin-left: 7.7%;" value ={{item.amount}} readonly><br>
+        <label style = " margin-left: -22.5%; padding-bottom: 18px;">Timestamp</label>
+        <input class = "box" type="text" id="data_5" name="timst" style="max-width : 450px;margin-left: 9%;" value ={{item.timestamp}} readonly>
+        <label for = "status" id = "status" name = "status" style = " margin-left: 10%; padding-bottom: 18px;">Status</label>
+        <select class = "box" style="width : 35.5%;margin-left: 2%;font-size: 17px;margin-left: 9.9%;" onchange = "dropdownchange()" id = "status">
+          <option value="{{item.status}}">{{item.status}}</option>
+          <!-- <option value="block">Block</option>
+          <option value="unblock">Unblock</option> -->
+        </select><br>
+        
+
+        <!-- <label style = " margin-left: -10%; padding-bottom: 18px;">Reason</label> -->
+        <label style = " margin-left: -30%; padding-bottom: 18px;">Requesting Domain</label>  
+        <input class = "box" type="text" id="data_4" name="requesting_domain" style="max-width : 450px; margin-left: 6.8%;" value ={{item.requesting_domain}} readonly>
+        <label style = " margin-left: 12%; padding-bottom: 18px;">Txid</label>
+        <input class = "box" type="text" id="data_4" name="txid" style="max-width : 450px;margin-left: 10.5%;" value ={{item.txid}} readonly><br>
+        <label style = " margin-left: -30%; padding-bottom: 18px;">Requesting Lambda</label>  
+        <input class = "box" type="text" id="data_4" name="requesting_lambda" style="max-width : 450px; margin-left: 6.6%;" value ={{item.requesting_lambda}} readonly>
+        <label style = " margin-left: 10%; padding-bottom: 18px;">Currency</label>
+        <input class = "box" type="text" id="data_4" name="currency" style="max-width : 450px;margin-left: 6.6%;" value ={{item.currency}} readonly><br>
+        <label style = " margin-left: -27%; padding-bottom: 18px;">Requesting Ip</label>  
+        <input class = "box" type="text" id="data_4" name="requesting_ip" style="max-width : 450px; margin-left: 10%;" value ={{item.requesting_ip}} readonly>
+        <label style = " margin-left: 10%; padding-bottom: 18px;">Username</label>
+        <input class = "box" type="text" id="data_4" name="username" style="max-width : 450px;margin-left: 5.6%;" value ={{item.username}} readonly><br><br>
+        <textarea class = "box" placeholder="Type your Reason here" style="width : 35%;margin-left: 28%;" rows="4"></textarea>
+
+
+
+
+
+
+        <input  type="submit" id = "updateclick" value="Update" class="btncls"/>
+        {% endfor %}
+        <script>
+          function dropdownchange() {
+            var select1 = document.getElementById("status");
+            if (select1.value === "Success") {
+              document.getElementById("updateclick").disabled = true;
+            } 
+            else if (select1.value === "Pending") {
+              var x = document.getElementById("status");
+              var option = document.createElement("option");
+              option.text = "Block";
+              x.add(option, x[1]);
+            
+            }
+            else {
+              var y = document.getElementById("status");
+              var option1 = document.createElement("option");
+              option1.text = "Unblock";
+              y.add(option1,y[1]);
+            }
+          }
+          dropdownchange()
+        
+        </script>
+        <script>
+
+            $("#transaction").on("submit", function(event) {
+              event.preventDefault();
+              var data = {
+                pk : $("#pk").val(),
+                sk : $("#sk").val(),
+                send_status : $("#status").val()
+              };
+              
+              console.log(data);
+
+              $.ajax({
+                  url: "/",
+                  type: "POST",
+                  data: data,
+                  xhrFields: {
+                    withCredentials: true
+                  }
+              }).done(function (data) {
+                console.log(data);
+          });
+      });
+
+
+        </script>
+
+      </form>
+  </body>
+</html>

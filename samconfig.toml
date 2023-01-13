@@ -1,0 +1,14 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "Liberty-Test"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-11zh4dz5am8i3"
+s3_prefix = "Liberty-Test"
+region = "ap-south-1"
+profile = "my-admin-profile"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+parameter_overrides = "VpcId=\"vpc-869259ed\" PublicSubnet1=\"subnet-b4a583f8\" PublicSubnet2=\"subnet-12137b69\" CertificateArn=\"arn:aws:acm:ap-south-1:301838289846:certificate/4cb55a71-32a2-45ac-a2c5-64fa948ca293\" authorizationEndpoint=\"https://login.microsoftonline.com/d21e0fcc-fc42-41b3-b968-cc60f1ab807e/oauth2/v2.0/authorize\" clientId=\"4mronkevv8o7vc0v21ugcv29vj\" clientSecret=\"ngt8Q~tH26R-imeNTOVToR_ADXK.hq1BGLD_Bds7\" issuer=\"https://login.microsoftonline.com/d21e0fcc-fc42-41b3-b968-cc60f1ab807e/v2.0\" tokenEndpoint=\"https://login.microsoftonline.com/d21e0fcc-fc42-41b3-b968-cc60f1ab807e/oauth2/v2.0/token\" userInfoEndpoint=\"https://graph.microsoft.com/oidc/userinfo\" HostedZoneId=\"Z0735990329NC36TCWGFH\" Recordname=\"www.dev.pennysaver.in\" ExistingTable=\"transactions\""
+image_repositories = []
