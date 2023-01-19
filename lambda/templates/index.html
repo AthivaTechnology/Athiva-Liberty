@@ -27,22 +27,31 @@
     {% for key, value in data.items() %}
     <tr>
         {% if key == 'send_status' %}
-        <td>{{ key }} (enqueued/blocked) </td>
+            <td>{{ key }} (enqueued/blocked) </td>
+            <td>
+                <select id="send_status_select"  {% if value == "sent" %}disabled{% endif %}>
+                    {% if value == "Pending" %}
+                        <option value="block">Block</option>
+                    {% else if value == "Block" %}
+                        <option value="unblocked">Unblock</option>
+                    {% else if value == "Unblock" %}
+                        <option value="resent">Re-sent</option>
+                    {% endif %}
+                </select>
+                <br>        
+                <label for="reason">Reason:</label>
+                <input type="text" id="reason_input" {% if sendStatusvalue == "sent" %}disabled{% endif %}>
+            </td>
+            <td>
+                <button class="save-btn" id="save_btn" {% if value == "sent" %}disabled{% endif %}>save</button>
+            </td>
         {% else %}
-        <td>{{ key }}</td>
-        {% endif %}
-        {% if key == 'send_status' %}
-        <td class="value-cell" data-key="{{key}}" data-value="{{value}}" id="send_status_cell" contenteditable="true">{{ value }}</td>
-        {% else %}
-        <td class="value-cell" data-key="{{key}}" data-value="{{value}}" id="{{key}}_cell" contenteditable="false">{{ value }}</td>
-        {% endif %}
-        {% if key == 'send_status' %}
-        <td><button class="save-btn" id="save_btn">save</button>
-        {% else %}
-        <td>
+            <td>{{ key }}</td>
+            <td class="value-cell" data-key="{{key}}" data-value="{{value}}" id="{{key}}_cell" contenteditable="false">{{ value }}</td>
         {% endif %}
     </tr>
-    {% endfor %}
+{% endfor %}
+
   </tbody>
 </table>
 
@@ -64,9 +73,11 @@
 
         var sk_cell =  $('#sk_cell');
         var sk = sk_cell.text();
+        
+        var reason = $("#reason_input").val();
 
 
-        var data = {'pk': pk, 'sk': sk, 'send_status': sendStatusvalue};
+        var data = {'pk': pk, 'sk': sk, 'send_status': sendStatusvalue, 'message' : reason};
 
         //alert(JSON.stringify(data));
 
